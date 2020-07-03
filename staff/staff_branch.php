@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-        if(isset($_POST['add']) == true)
+        if(isset($_POST['disp']) == true)
         {
             if(isset($_POST['staffcode']) == false)
             {
