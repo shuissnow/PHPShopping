@@ -7,36 +7,33 @@
 </head>
 <body>
     <?php
-    $staff_name = $_POST['name'];
-    $staff_pass = $_POST['pass'];
-    $staff_pass2 = $_POST['pass2'];
+    $pro_name = $_POST['name'];
+    $pro_price = $_POST['price'];
 
-    $staff_name = htmlspecialchars($staff_name, ENT_QUOTES, 'UTF-8');
-    $staff_pass = htmlspecialchars($staff_pass, ENT_QUOTES, 'UTF-8'); 
-    $staff_pass2 = htmlspecialchars($staff_pass2, ENT_QUOTES,'UTF-8');
+    $pro_name = htmlspecialchars($pro_name, ENT_QUOTES, 'UTF-8');
+    $pro_price = htmlspecialchars($pro_price, ENT_QUOTES, 'UTF-8'); 
 
-    if($staff_name == '')
+    if($pro_name == '')
     {
-        print '名前を入力してください <br>';
+        print '商品名を入力してください <br>';
     }
     else
     {
-        print 'スタッフ名:';
-        print $staff_name;
+        print '商品名:';
+        print $pro_name;
         print '<br>';
     }
     
-    if($staff_pass == '')
+    if(preg_match('/\A[0-9]+\z/',$pro_price) == 0)
     {
-        print 'パスワードが入力されていません<br>';
-
+        print '価格をきちんと入力してください。<br/>';
     }
-    if($staff_pass != $staff_pass2)
     {
-        print 'パスワードが一致していません<br>';
-
+        print '価格:';
+        print $pro_price;
+        print '円<br>';
     }
-    if($staff_name == '' || $staff_pass == '' || $staff_pass != $staff_pass2)
+    if($pro_name == '' || preg_match('/\A[0-9]+\z/',$pro_price) == 0)
     {
         print '<form>';
         print '<input type="button" onclick="history.back()" value="戻る">';
@@ -44,27 +41,15 @@
     }
     else
     {
-        $staff_pass = md5($staff_pass);
-        print'<form method="post" action="staff_add_done.php">';
-        print'<input type="hidden" name="name" value="'.$staff_name.'">';
-        print'<input type="hidden" name="pass" value="'.$staff_pass.'">';
+        print '上記の商品を追加します。';
+        print'<form method="post" action="pro_add_done.php">';
+        print'<input type="hidden" name="name" value="'.$pro_name.'">';
+        print'<input type="hidden" name="price" value="'.$pro_pass.'">';
         print'<br>';
         print'<input type="button" onclick="history.back()" value="戻る">';
         print'<input type="submit" value="OK">';
         print'</form>';
     }
     ?>
-    スタッフ追加<br>
-    <br>
-    <form action="staff_add_check.php" method="post">
-        スタッフ名を入力してください<br>
-        <input type="text name" name="name" style="width:200px"><br>
-        パスワードを入力してください<br>
-        <input type="password" name="pass" style="width:100px"><br>
-        パスワードをもう一度入力してください<br>
-        <input type="password" name="pass2" style="width:100px"><br>
-        <input type="button" onclick="history.back()" value="戻る">
-        <input type="submit" value="OK">
-    </form>
 </body>
 </html>
